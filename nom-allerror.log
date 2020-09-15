@@ -1,5 +1,0 @@
-INFO [nom_allerror] starting generic LSP server
-INFO [nom_allerror] starting example main loop
-INFO [nom_allerror] got msg: Notification(Notification { method: "$/setTraceNotification", params: Object({"value": String("off")}) })
-INFO [nom_allerror] got notification: Notification { method: "$/setTraceNotification", params: Object({"value": String("off")}) }
-INFO [nom_allerror] got msg: Request(Request { id: RequestId(U64(1)), method: "shutdown", params: Null })
