@@ -10,11 +10,7 @@ import { ChildProcess, spawn } from "child_process";
 let client: LanguageClient;
 let server: ChildProcess;
 
-function startServer() {
-    const config = workspace.getConfiguration("glspc");
-    const pathConfig : string | undefined = config.get("serverPath");
-    const serverPath : string = pathConfig ? pathConfig : "";
-
+function startServer(serverPath : string) {
     /*
         Examples: (you should expand ~ to your $HOME first)
         "/usr/bin/ccls"
@@ -42,21 +38,20 @@ function startServer() {
 }
 
 async function killServer() : Promise<void> {
-    return client.sendRequest("shutdown")
-        .then(() =>
-            client.sendNotification("exit"))
-        .then(() => {
-            server.kill();
-            return client.stop();
-        });
+    await client.stop();
+    server.kill();
 }
 
 export function activate(context: ExtensionContext) {
-    startServer();
+    const config = workspace.getConfiguration("glspc");
+    const pathConfig : string | undefined = config.get("serverPath");
+    const serverPath : string = pathConfig ? pathConfig : "";
 
-    context.subscriptions.push(commands.registerCommand('glspc.restartServer', () => {
-        killServer();
-        startServer();
+    startServer(serverPath);
+
+    context.subscriptions.push(commands.registerCommand('glspc.restartServer', async () => {
+        await killServer();
+        startServer(serverPath);
     }));
 }
 
