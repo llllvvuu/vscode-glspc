@@ -25,7 +25,13 @@
 					"description": "The file path to the LSP server executable to start."
 				}
 			}
-		}
+		},
+		"commands": [
+			{
+				"command": "glspc.restartServer",
+				"title": "GLSPC: Restart server"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

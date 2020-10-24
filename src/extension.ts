@@ -3,15 +3,17 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
 
-import { ExtensionContext, workspace } from 'vscode';
+import { ExtensionContext, workspace, commands, window } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions } from 'vscode-languageclient';
 import { ChildProcess, spawn } from "child_process";
 
 let client: LanguageClient;
+let server: ChildProcess;
 
-export function activate(context: ExtensionContext) {
+function startServer() {
     const config = workspace.getConfiguration("glspc");
-    const serverPath : string | undefined = config.get("serverPath");
+    const pathConfig : string | undefined = config.get("serverPath");
+    const serverPath : string = pathConfig ? pathConfig : "";
 
     /*
         Examples: (you should expand ~ to your $HOME first)
@@ -23,7 +25,9 @@ export function activate(context: ExtensionContext) {
 
     if (serverPath) {
         const serverOptions: ServerOptions = async (): Promise<ChildProcess> => {
-            return spawn(serverPath);
+            server = spawn(serverPath);
+            window.showInformationMessage("Started language server: " + serverPath);
+            return server;
         };
 
         const clientOptions: LanguageClientOptions = {
@@ -37,8 +41,25 @@ export function activate(context: ExtensionContext) {
     }
 }
 
+async function killServer() : Promise<void> {
+    return client.sendRequest("shutdown")
+        .then(() =>
+            client.sendNotification("exit"))
+        .then(() => {
+            server.kill();
+            return client.stop();
+        });
+}
+
+export function activate(context: ExtensionContext) {
+    startServer();
+
+    context.subscriptions.push(commands.registerCommand('glspc.restartServer', () => {
+        killServer();
+        startServer();
+    }));
+}
+
 export function deactivate(): Thenable<void> | undefined {
-    if (!client)
-        return undefined;
-    return client.stop();
+    return killServer();
 }
