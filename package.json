@@ -2,7 +2,7 @@
 	"name": "glspc",
 	"displayName": "glspc",
 	"description": "Generic LSP Client for VS Code",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"publisher": "torokati44",
 	"repository": "https://gitlab.com/torokati44/vscode-glspc",
 	"engines": {
