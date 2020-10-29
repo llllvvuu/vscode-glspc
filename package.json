@@ -14,6 +14,13 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"languages": [
+			{
+				"id": "generic",
+				"extensions": [ ".glspc" ],
+				"aliases": ["Generic LSP", "GLSPC", "Generic Language Server Protocol Client"]
+			}
+		],
 		"configuration": {
 			"type": "object",
 			"title": "Generic LSP Client",
@@ -23,6 +30,12 @@
 					"type": "string",
 					"default": "",
 					"description": "The file path to the LSP server executable to start."
+				},
+				"glspc.languageId": {
+					"scope": "window",
+					"type": "string",
+					"default": "plaintext",
+					"description": "The language id for which the server will be used"
 				}
 			}
 		},

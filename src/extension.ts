@@ -10,7 +10,7 @@ import { ChildProcess, spawn } from "child_process";
 let client: LanguageClient;
 let server: ChildProcess;
 
-function startServer(serverPath : string) {
+function startServer(serverPath : string, languageId: string) {
     /*
         Examples: (you should expand ~ to your $HOME first)
         "/usr/bin/ccls"
@@ -27,7 +27,7 @@ function startServer(serverPath : string) {
         };
 
         const clientOptions: LanguageClientOptions = {
-            documentSelector: [{ scheme: 'file', language: 'plaintext' }],
+            documentSelector: [ languageId ],
             diagnosticCollectionName: 'glspc',
         };
 
@@ -47,11 +47,14 @@ export function activate(context: ExtensionContext) {
     const pathConfig : string | undefined = config.get("serverPath");
     const serverPath : string = pathConfig ? pathConfig : "";
 
-    startServer(serverPath);
+    const langConfig : string | undefined = config.get("languageId");
+    const languageId : string = langConfig ? langConfig : "generic";
+
+    startServer(serverPath, languageId);
 
     context.subscriptions.push(commands.registerCommand('glspc.restartServer', async () => {
         await killServer();
-        startServer(serverPath);
+        startServer(serverPath, languageId);
     }));
 }
 
