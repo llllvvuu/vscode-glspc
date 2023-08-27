@@ -1,0 +1,10 @@
+.eslint*
+.prettier*
+.git*
+.vscode*
+.vscode
+.vscode/
+node_modules
+pnpm-lock.yaml
+src
+tsconfig.*

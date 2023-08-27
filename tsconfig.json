@@ -1,12 +1,35 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es2019",
-		"lib": ["ES2019"],
-		"outDir": "out",
-		"sourceMap": true,
-		"strict": true,
-		"rootDir": "src"
-	},
-	"exclude": ["node_modules", ".vscode-test"]
+  "compilerOptions": {
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "composite": true,
+    "emitDecoratorMetadata": false,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "newLine": "lf",
+    "outDir": "out",
+    "isolatedModules": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "checkJs": true,
+    "jsx": "preserve",
+    "rootDir": "src",
+    "target": "es2020",
+    "preserveSymlinks": false,
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true
+  }
 }

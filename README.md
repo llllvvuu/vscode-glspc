@@ -1,37 +1,30 @@
-# Generic LSP Client for VS Code
 
-This is a barebones, minimal, simple [LSP](https://langserver.org/) client extension that starts an arbitrary executable to be used as a server through its stdin and stdout.
+# Generic LSP Client for VSCode
 
-Nothing more, nothing less.
+This is a GitHub fork of torokati44's [GitLab repository](https://gitlab.com/torokati44/vscode-glspc) plus some fixes and updates.
 
-Mostly for testing and experimentation.
+Before using this, please search the repository of your LSP server for "vscode", since 99% of the time they already made a VSCode LSP client.
 
-This was scraped together from:
-  - https://github.com/microsoft/vscode-extension-samples/tree/master/helloworld-sample
-  - https://github.com/microsoft/vscode-extension-samples/tree/master/lsp-sample
-  - https://github.com/MaskRay/vscode-ccls
+## Marketplace Link
+[Generic LSP Client](https://marketplace.visualstudio.com/items?itemName=llllvvuu.llllvvuu-glspc)
 
-Inspired by my [repeated](https://twitter.com/torokati44/status/1214988526460256256) [frustration](https://twitter.com/torokati44/status/1291353494440554496) of how unsimple this is with VS Code out of the box, in contrast with [Kate](https://kate-editor.org/)
+## Configuration Example
 
-## Usage
+![Settings Example](./settings.png)
 
-Set the `"glspc.serverPath"` configuration setting to the full path of an executable that
-implements the LSP protocol through its standard input and output streams.
-This executable will be started as an LSP server for any file in "Plain Text" mode, so
-you should (usually) get working autocompletion, outline, problem markers, and whatnot.
+## Multiple LSP Servers
 
-Example values:
-  - `"/usr/bin/ccls"`
-  - `"/home/<user>/.cargo/bin/rls"`
-  - `"/usr/bin/clangd"`
-  - `"/home/<user>/.local/bin/pyls"`
+This extension is not a process manager (yet), so to get clients for multiple LSP servers you need to build multiple copies of this extension:
 
-If the server of your choice only speaks TCP or WS or HTTP or something, you can try putting together
-a wrapper script for it using `nc` or `netcat` or `socat`, or similar for other protocols.
+```sh
+vi package.json  # change the "name", "displayName", and "description" fields
+                 # also find/replace "Generic LSP Client"
+npm install
+npm run package
+```
 
-## Running during Development
+Then you can load it into VSCode under Extensions > ... > Install from VSIX...
 
-  - Run `npm install` in terminal to install dependencies
-  - Run the `Run Extension` target in the Debug View. This will:
-    - Start a task `npm: watch` to compile the code
-    - Run the extension in a new VS Code window
+## See Also
+* [mattn/efm-langserver](https://github.com/mattn/efm-langserver) - Adapter for any command-line tool to LSP.
+* [llllvvuu/efm-tool-definitions.yaml](https://github.com/llllvvuu/efm-tool-definitions.yaml) - Configuration presets for the above.
