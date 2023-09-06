@@ -1,16 +1,20 @@
+# Generic [LSP](https://microsoft.github.io/language-server-protocol/) Client for VSCode
 
-# Generic LSP Client for VSCode
-
-This is a GitHub fork of torokati44's [GitLab repository](https://gitlab.com/torokati44/vscode-glspc) plus some fixes and updates.
-
-Before using this, please search the repository of your LSP server for "vscode", since 99% of the time they already made a VSCode LSP client.
+For the rare instances where you have an LSP Server but not an LSP Client for VSCode.
 
 ## Marketplace Link
 [Generic LSP Client](https://marketplace.visualstudio.com/items?itemName=llllvvuu.llllvvuu-glspc)
 
 ## Configuration Example
 
-![Settings Example](./settings.png)
+`settings.json`:
+```json
+{
+  "glspc.languageId": "solidity",
+  "glspc.serverCommand": "/Users/me/.local/share/nvim/mason/bin/efm-langserver",
+  "glspc.pathPrepend": "/Users/me/.local/share/rtx/installs/python/3.11.4/bin:/Users/me/.local/share/rtx/installs/node/20.3.1/bin",
+}
+```
 
 ## Multiple LSP Servers
 
@@ -28,3 +32,7 @@ Then you can load it into VSCode under Extensions > ... > Install from VSIX...
 ## See Also
 * [mattn/efm-langserver](https://github.com/mattn/efm-langserver) - Adapter for any command-line tool to LSP.
 * [llllvvuu/efm-tool-definitions.yaml](https://github.com/llllvvuu/efm-tool-definitions.yaml) - Configuration presets for the above.
+
+## Credits
+* [torokati44/vscode-glspc](https://gitlab.com/torokati44/vscode-glspc) - where this is forked from
+* [Matts966/efm-langserver-vscode](https://github.com/Matts966/efm-langserver-vscode) - where the text changed handlers are taken from

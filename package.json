@@ -1,6 +1,6 @@
 {
   "name": "llllvvuu-glspc",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "displayName": "Generic LSP Client",
   "description": "Generic LSP Client for VS Code",
   "categories": [],
