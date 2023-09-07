@@ -166,33 +166,38 @@ function startServer() {
       )
       return client.sendNotification("textDocument/didOpen", param)
     })
-    languages.registerHoverProvider([languageId], {
-      async provideHover(document, position, token) {
-        if (document.uri.scheme !== "file") {
+
+    if (client.initializeResult?.capabilities.hoverProvider) {
+      languages.registerHoverProvider([languageId], {
+        async provideHover(document, position, token) {
+          if (document.uri.scheme !== "file") {
+            outputChannel.appendLine(
+              `uri: ${document.uri.toString()} is not a file`,
+            )
+            return
+          }
           outputChannel.appendLine(
-            `uri: ${document.uri.toString()} is not a file`,
+            `provideHover for ${document.uri.toString()}`,
           )
-          return
-        }
-        outputChannel.appendLine(`provideHover for ${document.uri.toString()}`)
-        openFile(document, languageId, outputChannel, openDocuments)
-        return client
-          .sendRequest(
-            HoverRequest.type,
-            client.code2ProtocolConverter.asTextDocumentPositionParams(
-              document,
-              position,
-            ),
-            token,
-          )
-          .then(result => {
-            if (token.isCancellationRequested) {
-              return null
-            }
-            return client.protocol2CodeConverter.asHover(result)
-          })
-      },
-    })
+          openFile(document, languageId, outputChannel, openDocuments)
+          return client
+            .sendRequest(
+              HoverRequest.type,
+              client.code2ProtocolConverter.asTextDocumentPositionParams(
+                document,
+                position,
+              ),
+              token,
+            )
+            .then(result => {
+              if (token.isCancellationRequested) {
+                return null
+              }
+              return client.protocol2CodeConverter.asHover(result)
+            })
+        },
+      })
+    }
 
     const triggers =
       client.initializeResult?.capabilities.completionProvider

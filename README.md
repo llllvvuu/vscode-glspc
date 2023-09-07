@@ -20,6 +20,8 @@ For the rare instances where you have an LSP Server but not an LSP Client for VS
 }
 ```
 
+(you will likely need to set `pathPrepend` since VSCode doesn't run your `.bashrc`/`.zshrc`)
+
 ## Multiple LSP Servers
 
 This extension is not a process manager (yet), so to get clients for multiple LSP servers you need to build multiple copies of this extension:
