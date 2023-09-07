@@ -31,21 +31,21 @@ function openFile(
 ) {
   if (!openDocuments.has(document.uri.toString())) {
     openDocuments.add(document.uri.toString())
+    const param: DidOpenTextDocumentParams = {
+      textDocument: {
+        uri: document.uri.toString(),
+        languageId,
+        version: document.version,
+        text: document.getText(),
+      },
+    }
+    outputChannel.appendLine(
+      `File not opened, publishing textDocument/didOpen with param: ${JSON.stringify(
+        param,
+      )}`,
+    )
+    void client.sendNotification("textDocument/didOpen", param)
   }
-  const param: DidOpenTextDocumentParams = {
-    textDocument: {
-      uri: document.uri.toString(),
-      languageId,
-      version: document.version,
-      text: document.getText(),
-    },
-  }
-  outputChannel.appendLine(
-    `File not opened, publishing textDocument/didOpen with param: ${JSON.stringify(
-      param,
-    )}`,
-  )
-  void client.sendNotification("textDocument/didOpen", param)
 }
 
 function startServer(
