@@ -48,20 +48,25 @@ function openFile(
   }
 }
 
-function startServer(
-  serverCommand: string,
-  languageId: string,
-  pathPrepend: string | undefined,
-  initializationOptions: object,
-) {
+function startServer() {
+  const config = workspace.getConfiguration("glspc")
+  const serverCommand: string = config.get("serverCommand") ?? ""
+
   if (serverCommand) {
+    const serverCommandArguments: string[] =
+      config.get("serverCommandArguments") ?? []
+    const languageId: string = config.get("languageId") ?? ""
+    const initializationOptions: object =
+      config.get("initializationOptions") ?? {}
+    const pathPrepend: string | undefined = config.get("pathPrepend")
+
     const outputChannel = window.createOutputChannel("glspc")
     outputChannel.appendLine("starting glspc...")
 
     // eslint-disable-next-line @typescript-eslint/require-await
     const serverOptions: ServerOptions = async (): Promise<ChildProcess> => {
       const prepend = pathPrepend?.concat(":") ?? ""
-      server = spawn(serverCommand, undefined, {
+      server = spawn(serverCommand, serverCommandArguments, {
         env: {
           ...process.env,
           PATH: prepend.concat(process.env["PATH"] ?? ""),
@@ -235,19 +240,12 @@ async function killServer(): Promise<void> {
 }
 
 export function activate(context: ExtensionContext) {
-  const config = workspace.getConfiguration("glspc")
-  const serverCommand: string = config.get("serverCommand") ?? ""
-  const languageId: string = config.get("languageId") ?? ""
-  const initializationOptions: object =
-    config.get("initializationOptions") ?? {}
-  const pathPrepend: string | undefined = config.get("pathPrepend")
-
-  startServer(serverCommand, languageId, pathPrepend, initializationOptions)
+  startServer()
 
   context.subscriptions.push(
     commands.registerCommand("glspc.restartServer", async () => {
       await killServer()
-      startServer(serverCommand, languageId, pathPrepend, initializationOptions)
+      startServer()
     }),
   )
 }

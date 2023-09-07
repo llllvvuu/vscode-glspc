@@ -1,6 +1,6 @@
 {
   "name": "llllvvuu-glspc",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "displayName": "Generic LSP Client",
   "description": "Generic LSP Client for VS Code",
   "categories": [],
@@ -60,6 +60,12 @@
           "default": "",
           "editPresentation": "multilineText",
           "description": "The file path to the LSP server executable to start."
+        },
+        "glspc.serverCommandArguments": {
+          "scope": "window",
+          "type": "array",
+          "default": [],
+          "description": "Arguments to pass to the LSP server executable."
         },
         "glspc.languageId": {
           "scope": "window",

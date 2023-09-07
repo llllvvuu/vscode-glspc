@@ -14,7 +14,9 @@ For the rare instances where you have an LSP Server but not an LSP Client for VS
 {
   "glspc.languageId": "solidity",
   "glspc.serverCommand": "/Users/me/.local/share/nvim/mason/bin/efm-langserver",
-  "glspc.pathPrepend": "/Users/me/.local/share/rtx/installs/python/3.11.4/bin:/Users/me/.local/share/rtx/installs/node/20.3.1/bin"
+  "glspc.pathPrepend": "/Users/me/.local/share/rtx/installs/python/3.11.4/bin:/Users/me/.local/share/rtx/installs/node/20.3.1/bin",
+  "glspc.serverCommandArguments": [],
+  "glspc.initializationOptions": {}
 }
 ```
 
