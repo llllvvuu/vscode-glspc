@@ -6,25 +6,14 @@ For the rare instances where you have an LSP Server but not an LSP Client for VS
 
 [Generic LSP Client](https://marketplace.visualstudio.com/items?itemName=llllvvuu.llllvvuu-glspc)
 
-## Configuration Example
-
-`settings.json`:
-
-```json
-{
-  "glspc.languageId": "solidity",
-  "glspc.serverCommand": "/Users/me/.local/share/nvim/mason/bin/efm-langserver",
-  "glspc.pathPrepend": "/Users/me/.local/share/rtx/installs/python/3.11.4/bin:/Users/me/.local/share/rtx/installs/node/20.3.1/bin",
-  "glspc.serverCommandArguments": [],
-  "glspc.initializationOptions": {}
-}
-```
-
-(you will likely need to set `pathPrepend` since VSCode doesn't run your `.bashrc`/`.zshrc`)
+## "Failed to start server: spawn {command} ENOENT"
+If there is a $PATH issue, you have a few options:
+1. Run `code .` from a terminal in which the command is available in $PATH.
+2. Set PATH in `glspc.environmentVariables` under "Extension Settings".
 
 ## Multiple LSP Servers
 
-This extension is not a process manager (yet), so to get clients for multiple LSP servers you need to build multiple copies of this extension:
+This extension is currently only able to register one language server. If necessary, you can to build multiple copies of this extension:
 
 ```sh
 vi package.json  # change the "name", "displayName", and "description" fields

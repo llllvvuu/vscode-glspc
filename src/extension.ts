@@ -25,22 +25,45 @@ function startServer() {
     const languageId: string = config.get("languageId") ?? ""
     const initializationOptions: object =
       config.get("initializationOptions") ?? {}
-    const pathPrepend: string | undefined = config.get("pathPrepend")
+    const environmentVariables: Record<string, unknown> =
+      config.get("environmentVariables") ?? {}
 
     const outputChannel = window.createOutputChannel("glspc")
     outputChannel.appendLine("starting glspc...")
 
     const serverOptions: ServerOptions = (): Promise<ChildProcess> => {
-      const prepend = pathPrepend?.concat(":") ?? ""
+      const env = { ...process.env }
+      for (const [key, value] of Object.entries(environmentVariables)) {
+        if (typeof value !== "string") continue
+        env[key] = value.replace(
+          /\$(\w+)/g,
+          (_, varName: string) => env[varName] ?? "",
+        )
+      }
       server = spawn(serverCommand, serverCommandArguments, {
-        env: {
-          ...process.env,
-          PATH: prepend.concat(process.env["PATH"] ?? ""),
-        },
+        env,
+        cwd: workspace.workspaceFolders?.[0]?.uri.fsPath,
       })
-      void window.showInformationMessage(
-        `Started language server: ${serverCommand}`,
-      )
+
+      server.on("error", error => {
+        outputChannel.appendLine(`Failed to start server: ${error.message}`)
+        void window.showErrorMessage(
+          `Failed to start language server: ${serverCommand}. Error: ${error.message}`,
+        )
+      })
+
+      server.on("exit", (code, signal) => {
+        outputChannel.appendLine(
+          `Server process exited with code ${code} and signal ${signal}`,
+        )
+      })
+
+      server.on("spawn", () => {
+        void window.showInformationMessage(
+          `Started language server: ${serverCommand}`,
+        )
+      })
+
       return Promise.resolve(server)
     }
 
