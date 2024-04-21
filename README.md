@@ -1,35 +1,19 @@
-# Generic [LSP](https://microsoft.github.io/language-server-protocol/) Client for VSCode
+# [Fixit](https://github.com/Instagram/Fixit) (unofficial) for VSCode
 
-For the rare instances where you have an LSP Server but not an LSP Client for VSCode.
+Real-time diagnostics (TODO: auto-fixes) for the Fixit linter.
 
 ## Marketplace Link
 
-[Generic LSP Client](https://marketplace.visualstudio.com/items?itemName=llllvvuu.llllvvuu-glspc)
+[Fixit (unofficial)](https://marketplace.visualstudio.com/items?itemName=llllvvuu.fixit-unofficial)
 
-## "Failed to start server: spawn {command} ENOENT"
-If there is a $PATH issue, you have a few options:
-1. Run `code .` from a terminal in which the command is available in $PATH.
-2. Set PATH in `glspc.environmentVariables` under "Extension Settings".
 
-## Multiple LSP Servers
+## Prerequisites
 
-This extension is currently only able to register one language server. If necessary, you can to build multiple copies of this extension:
-
-```sh
-vi package.json  # change the "name", "displayName", and "description" fields
-                 # also find/replace "Generic LSP Client"
-npm install
-npm run package
-```
-
-Then you can load it into VSCode under Extensions > ... > Install from VSIX...
-
-## See Also
-
-- [mattn/efm-langserver](https://github.com/mattn/efm-langserver) - Adapter for any command-line tool to LSP.
-- [llllvvuu/efm-tool-definitions.yaml](https://github.com/llllvvuu/efm-tool-definitions.yaml) - Configuration presets for the above.
+1. Install [Fixit](https://github.com/Instagram/Fixit) with `lsp` extras (e.g. `pip install "fixit[lsp]"`)
+2. Ensure `fixit` is on the `$PATH` seen by VSCode. There are a few ways to do this:
+    - Run `code .` from a terminal in which the command is available in `$PATH`.
+    - Set PATH in `fixitUnofficial.environmentVariables` under "Extension Settings". The appropriate value can be determined by running `which fixit` in a terminal.
 
 ## Credits
 
 - [torokati44/vscode-glspc](https://gitlab.com/torokati44/vscode-glspc) - where this is forked from
-- [Matts966/efm-langserver-vscode](https://github.com/Matts966/efm-langserver-vscode) - where the text changed handlers are taken from

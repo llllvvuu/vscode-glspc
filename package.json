@@ -1,10 +1,10 @@
 {
-  "name": "llllvvuu-glspc",
-  "version": "0.1.10",
-  "displayName": "Generic LSP Client",
-  "description": "Generic LSP Client for VS Code",
+  "name": "fixit-unofficial",
+  "version": "0.0.2",
+  "displayName": "Fixit (unofficial)",
+  "description": "Unofficial extension for the Fixit linter",
   "categories": [],
-  "repository": "https://github.com/llllvvuu/vscode-glspc",
+  "repository": "https://github.com/llllvvuu/vscode-fixitUnofficial",
   "publisher": "llllvvuu",
   "contributors": [
     "llllvvuu",
@@ -50,34 +50,36 @@
   "contributes": {
     "configuration": {
       "type": "object",
-      "title": "Generic LSP Client",
+      "title": "Fixit (unofficial)",
       "properties": {
-        "glspc.serverCommand": {
+        "fixitUnofficial.serverCommand": {
           "scope": "window",
           "type": "string",
-          "default": "",
+          "default": "fixit",
           "editPresentation": "multilineText",
           "description": "The command to start the language server."
         },
-        "glspc.serverCommandArguments": {
+        "fixitUnofficial.serverCommandArguments": {
           "scope": "window",
           "type": "array",
-          "default": [],
+          "default": [
+            "lsp"
+          ],
           "description": "Command-line arguments to pass to the LSP server. Example: [\"lsp\"]"
         },
-        "glspc.languageId": {
+        "fixitUnofficial.languageId": {
           "scope": "window",
           "type": "string",
-          "default": "",
+          "default": "python",
           "description": "The language id for which the server will be used. Example: python."
         },
-        "glspc.environmentVariables": {
+        "fixitUnofficial.environmentVariables": {
           "scope": "window",
           "type": "object",
           "default": {},
           "description": "Additional environment variables to set when starting the LSP server executable. Use $VAR to refer to existing environment variables. Example: { \"PATH\": \"/some/path:$PATH\" }"
         },
-        "glspc.initializationOptions": {
+        "fixitUnofficial.initializationOptions": {
           "scope": "window",
           "type": "object",
           "default": {},
@@ -87,8 +89,8 @@
     },
     "commands": [
       {
-        "command": "glspc.restartServer",
-        "title": "Generic LSP Client: Restart server"
+        "command": "fixitUnofficial.restartServer",
+        "title": "Fixit (unofficial): Restart server"
       }
     ]
   }

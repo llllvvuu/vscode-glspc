@@ -16,7 +16,7 @@ let client: LanguageClient
 let server: ChildProcess | undefined
 
 function startServer() {
-  const config = workspace.getConfiguration("glspc")
+  const config = workspace.getConfiguration("fixitUnofficial")
   const serverCommand: string = config.get("serverCommand") ?? ""
 
   if (serverCommand) {
@@ -28,8 +28,8 @@ function startServer() {
     const environmentVariables: Record<string, unknown> =
       config.get("environmentVariables") ?? {}
 
-    const outputChannel = window.createOutputChannel("glspc")
-    outputChannel.appendLine("starting glspc...")
+    const outputChannel = window.createOutputChannel("Fixit (unofficial)")
+    outputChannel.appendLine("Starting Fixit (unofficial)...")
 
     const serverOptions: ServerOptions = (): Promise<ChildProcess> => {
       const env = { ...process.env }
@@ -69,18 +69,18 @@ function startServer() {
 
     const clientOptions: LanguageClientOptions = {
       documentSelector: [languageId],
-      diagnosticCollectionName: "glspc",
+      diagnosticCollectionName: "fixitUnofficial",
       initializationOptions,
     }
 
     client = new LanguageClient(
-      "glspc",
-      "Generic LSP Client",
+      "fixitUnofficial",
+      "Fixit (unofficial)",
       serverOptions,
       clientOptions,
     )
 
-    void client.start().then(() => outputChannel.appendLine("started glspc."))
+    void client.start().then(() => outputChannel.appendLine("started Fixit (unofficial)."))
   }
 }
 
@@ -93,7 +93,7 @@ export function activate(context: ExtensionContext) {
   startServer()
 
   context.subscriptions.push(
-    commands.registerCommand("glspc.restartServer", async () => {
+    commands.registerCommand("fixitUnofficial.restartServer", async () => {
       await killServer()
       startServer()
     }),
