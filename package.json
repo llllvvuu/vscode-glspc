@@ -1,6 +1,6 @@
 {
   "name": "llllvvuu-glspc",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "displayName": "Generic LSP Client",
   "description": "Generic LSP Client for VS Code",
   "categories": [],
@@ -57,32 +57,31 @@
           "type": "string",
           "default": "",
           "editPresentation": "multilineText",
-          "description": "The file path to the LSP server executable to start."
+          "description": "The command to start the language server."
         },
         "glspc.serverCommandArguments": {
           "scope": "window",
           "type": "array",
           "default": [],
-          "description": "Arguments to pass to the LSP server executable."
+          "description": "Command-line arguments to pass to the LSP server. Example: [\"lsp\"]"
         },
         "glspc.languageId": {
           "scope": "window",
           "type": "string",
           "default": "",
-          "description": "The language id for which the server will be used"
+          "description": "The language id for which the server will be used. Example: python."
         },
-        "glspc.pathPrepend": {
+        "glspc.environmentVariables": {
           "scope": "window",
-          "type": "string",
-          "default": "",
-          "editPresentation": "multilineText",
-          "description": "Prepend to the PATH when starting the LSP server executable"
+          "type": "object",
+          "default": {},
+          "description": "Additional environment variables to set when starting the LSP server executable. Use $VAR to refer to existing environment variables. Example: { \"PATH\": \"/some/path:$PATH\" }"
         },
         "glspc.initializationOptions": {
           "scope": "window",
           "type": "object",
           "default": {},
-          "description": "Aditional info to pass to the LSP initialization."
+          "description": "https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#initializeParams"
         }
       }
     },
