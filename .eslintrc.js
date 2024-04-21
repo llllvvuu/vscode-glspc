@@ -1,32 +1,40 @@
+/** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
-  extends: [
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript",
-    "eslint:recommended",
-    "plugin:import/recommended",
-    "prettier",
-  ],
-  settings: {
-    "import/resolver": {
-      typescript: {
-        project: "./tsconfig.json",
-      },
-    },
+  extends: ["eslint:recommended", "prettier"],
+  plugins: ["simple-import-sort"],
+  rules: {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "warn",
+  },
+  parserOptions: {
+    ecmaVersion: "latest",
+  },
+  env: {
+    es6: true,
+    node: true,
   },
   overrides: [
     {
-      files: ["*.ts"],
-      plugins: ["@typescript-eslint/eslint-plugin", "import"],
+      files: ["*.mjs"],
+      parserOptions: {
+        sourceType: "module",
+        ecmaVersion: 2020,
+      },
+    },
+    {
+      files: ["*.ts", "*.tsx"],
+      plugins: ["@typescript-eslint/eslint-plugin", "simple-import-sort"],
       parser: "@typescript-eslint/parser",
       settings: {
         "import/resolver": {
-          typescript: {},
+          typescript: {
+            alwaysTryTypes: true,
+          },
         },
       },
       parserOptions: {
-        tsconfigRootDir: __dirname,
+        tsconfigRootDir: process.cwd(),
         project: "./tsconfig.json",
       },
       extends: [
@@ -34,10 +42,16 @@ module.exports = {
         "plugin:@typescript-eslint/stylistic-type-checked",
       ],
       rules: {
-        "no-redeclare": "off",
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-extra-semi": "off",
+        "no-redeclare": "off", // replace with @typescript-eslint version
+        "no-unused-vars": "off", // replace with @typescript-eslint version
+        "@typescript-eslint/no-extra-semi": "off", // no need with prettier
         "@typescript-eslint/no-redeclare": "error",
+        "@typescript-eslint/dot-notation": "off", // conflict with `noPropertyAccessFromIndexSignature`
+        "@typescript-eslint/switch-exhaustiveness-check": "error",
+        "@typescript-eslint/restrict-template-expressions": [
+          "error",
+          { allowNumber: true },
+        ],
         "@typescript-eslint/no-unused-vars": [
           "error",
           {
@@ -69,69 +83,5 @@ module.exports = {
       },
     },
   ],
-  env: {
-    node: true,
-    es6: true,
-    es2020: true,
-  },
-  parserOptions: {
-    ecmaVersion: 2021,
-  },
-  rules: {
-    "arrow-body-style": ["error", "as-needed"],
-    "import/no-deprecated": "error",
-    "import/order": [
-      "error",
-      {
-        groups: [
-          "builtin",
-          "external",
-          "parent",
-          "sibling",
-          "index",
-          "object",
-          "type",
-        ],
-        pathGroups: [
-          {
-            pattern: "@/**/**",
-            group: "parent",
-            position: "after",
-          },
-          {
-            pattern: "@obs/**/**",
-            group: "parent",
-            position: "before",
-          },
-        ],
-        ["newlines-between"]: "always-and-inside-groups",
-        pathGroupsExcludedImportTypes: ["type"],
-        alphabetize: {
-          order: "asc",
-        },
-      },
-    ],
-    "no-restricted-imports": [
-      "error",
-      {
-        patterns: [
-          {
-            group: ["../*"],
-            message: "Usage of relative parent imports is not allowed.",
-          },
-        ],
-      },
-    ],
-    "max-len": [
-      "error",
-      {
-        code: 80,
-        tabWidth: 2,
-        ignoreComments: true,
-        ignoreUrls: true,
-        ignoreStrings: true,
-        ignoreTemplateLiterals: true,
-      },
-    ],
-  },
+  ignorePatterns: ["node_modules/", "dist/", "out/"],
 }

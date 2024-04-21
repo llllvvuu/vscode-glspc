@@ -4,13 +4,8 @@
  * ------------------------------------------------------------------------------------------ */
 
 import { type ChildProcess, spawn } from "child_process"
-
-// eslint-disable-next-line import/no-unresolved
-import { workspace, commands, languages, window } from "vscode"
-import { LanguageClient } from "vscode-languageclient/node"
-import { HoverRequest, CompletionRequest } from "vscode-languageserver-protocol"
-
-import type { ExtensionContext, TextDocument, OutputChannel } from "vscode"
+import type { ExtensionContext, OutputChannel, TextDocument } from "vscode"
+import { commands, languages, window, workspace } from "vscode"
 import type {
   DidChangeTextDocumentParams,
   DidCloseTextDocumentParams,
@@ -19,6 +14,8 @@ import type {
   LanguageClientOptions,
   ServerOptions,
 } from "vscode-languageclient/node"
+import { LanguageClient } from "vscode-languageclient/node"
+import { CompletionRequest, HoverRequest } from "vscode-languageserver-protocol"
 
 let client: LanguageClient
 let server: ChildProcess
