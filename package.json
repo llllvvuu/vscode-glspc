@@ -1,6 +1,6 @@
 {
   "name": "llllvvuu-glspc",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "displayName": "Generic LSP Client",
   "description": "Generic LSP Client for VS Code",
   "categories": [],
@@ -13,7 +13,7 @@
     "Matts966"
   ],
   "engines": {
-    "vscode": "^1.81.0"
+    "vscode": "^1.88.1"
   },
   "main": "./out/extension.js",
   "scripts": {
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.5.6",
-    "@types/vscode": "^1.81.0",
+    "@types/vscode": "^1.88.0",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
     "@vscode/vsce": "^2.20.1",
