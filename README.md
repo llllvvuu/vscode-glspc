@@ -6,6 +6,9 @@ For the rare instances where you have an LSP Server but not an LSP Client for VS
 
 [Generic LSP Client](https://marketplace.visualstudio.com/items?itemName=llllvvuu.llllvvuu-glspc)
 
+## Setup
+Configure the server executable under "Extension Settings".
+
 ## "Failed to start server: spawn {command} ENOENT"
 If there is a $PATH issue, you have a few options:
 1. Run `code .` from a terminal in which the command is available in $PATH.
