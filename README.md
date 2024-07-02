@@ -14,6 +14,9 @@ If there is a $PATH issue, you have a few options:
 1. Run `code .` from a terminal in which the command is available in $PATH.
 2. Set PATH in `glspc.environmentVariables` under "Extension Settings".
 
+## Tracing
+You can enable tracing by adding `"glspc.trace.server": "verbose"` to your `settings.json` and then checking the "Generic LSP Client" output.
+
 ## Multiple LSP Servers
 
 This extension is currently only able to register one language server. If necessary, you can to build multiple copies of this extension:
